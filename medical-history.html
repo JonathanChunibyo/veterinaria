@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Historial Médico - Veterinaria CUN</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Veterinaria CUN</h1>
+    </header>
+
+    <section id="medical-history-section">
+        <h2>Historial Médico</h2>
+
+        <label for="searchPet">Buscar Mascota:</label>
+        <input type="text" id="searchPet" name="searchPet" placeholder="Nombre de la Mascota">
+        <button type="button" onclick="buscarHistorial()">Buscar</button>
+
+        <div id="historial-container"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Veterinaria CUN. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function buscarHistorial() {
+            const nombreMascota = document.getElementById('searchPet').value;
+
+            // Puedes realizar validaciones adicionales aquí antes de enviar la petición
+
+            const url = `http://localhost:8000/medical-history.php?mascota=${nombreMascota}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    mostrarHistorial(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function mostrarHistorial(data) {
+            const historialContainer = document.getElementById('historial-container');
+
+            // Limpiar el contenido anterior
+            historialContainer.innerHTML = "";
+
+            if (data.length === 0) {
+                historialContainer.innerHTML = "<p>No se encontraron registros para la mascota.</p>";
+            } else {
+                // Crear tabla y encabezados
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+                const trHeader = document.createElement('tr');
+
+                for (const key in data[0]) {
+                    const th = document.createElement('th');
+                    th.textContent = key;
+                    trHeader.appendChild(th);
+                }
+
+                thead.appendChild(trHeader);
+                table.appendChild(thead);
+
+                // Crear filas de datos
+                data.forEach(item => {
+                    const tr = document.createElement('tr');
+                    for (const key in item) {
+                        const td = document.createElement('td');
+                        td.textContent = item[key];
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                });
+
+                table.appendChild(tbody);
+                historialContainer.appendChild(table);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
