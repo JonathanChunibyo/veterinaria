@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Registro de Cliente - Veterinaria CUN</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Veterinaria CUN</h1>
+    </header>
+
+    <section id="registration-section">
+        <h2>Registro de Cliente</h2>
+        <form id="registration-form">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+
+            <button type="button" onclick="registrarCliente()">Registrar</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Veterinaria CUN. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- <script>
+        function registrarCliente() {
+            const nombre = document.getElementById('nombre').value;
+            const apellido = document.getElementById('apellido').value;
+            const correo = document.getElementById('correo').value;
+            const telefono = document.getElementById('telefono').value;
+
+            // Puedes realizar validaciones adicionales aquí antes de enviar la petición
+
+            const url = 'http://localhost:8000/register.php';
+            const data = {
+                nombre: nombre,
+                apellido: apellido,
+                correo: correo,
+                telefono: telefono
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // Puedes manejar la respuesta y actualizar la interfaz de usuario según sea necesario
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script> -->
+
+</body>
+
+</html>
